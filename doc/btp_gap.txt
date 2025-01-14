@@ -637,6 +637,124 @@ Commands and responses:
 
 		In case of an error, the error response will be returned.
 
+  Opcode 0x2a - Enhanced Create Advertisement Set
+
+		Controller Index:	<controller id>
+		Command parameters:  <none>
+    Return Parameters:	Created Advertisement Set ID (1 octet)
+
+    This command is used to create an advertisement set, which can be used
+    for both legacy and extended advertisements. The set is created in
+    the stopped state.
+
+    The set is created with the default parameters of:
+              Identity (1 octet) = 0 (default identity)
+              SID (1 octet) = 0
+              Secondary Channel Max Skip Count (1 octet) = 0
+              Options (4 octets) = 0x00000012 (Use public address, use name)
+              Minimum Interval (4 octets) = 160 (100 ms)
+              Maximum Interval (4 octets) = 320 (200 ms)
+              Peer Address (6 octets) = 00:00:00:00:00:00
+
+    The parameters can be changed with the Enhanced Update Advertisement Set
+    Parameters command.
+
+    The set can be deleted with Enhanced Delete Advertisement Set.
+
+    The return value is the ID of the newly created set.
+
+		In case of an error, the error response will be returned.
+
+  Opcode 0x2b - Enhanced Delete Advertisement Set
+
+		Controller Index:	<controller id>
+		Command parameters:  Advertisement Set Id (1 octet)
+    Return Parameters:	<none>
+
+    This command is used to delete a previously created advertisement set.
+    If the advertisement set is currently active, it will be stopped.
+
+		In case of an error, the error response will be returned.
+
+  Opcode 0x2c - Enhanced Update Advertisement Set Parameters
+
+		Controller Index:	<controller id>
+		Command parameters:  Advertisement Set Id (1 octet)
+              Identity (1 octet)
+              SID (1 octet)
+              Secondary Channel Max Skip Count (1 octet)
+              Options (4 octets)
+              Minimum Interval, in 0.625ms units (4 octets)
+              Maximum Interval, in 0.625ms units (4 octets)
+              Peer Address (6 octets)
+    Return Parameters:	<none>
+
+    This command is used to configure the parameters of a previously created
+    advertisement set. The advertisement set must be stopped when the command
+    is given, otherwise an error will be emitted.
+
+    The allowed values for SID are 0...15.
+
+    Minimum Interval must be less than or equal to Maximum Interval.
+
+		In case of an error, the error response will be returned.
+
+  Opcode 0x2d - Enhanced Update Advertisement Set Data
+
+		Controller Index:	<controller id>
+		Command parameters:  Advertisement Set Id (1 octet)
+		          Adv Data Length (2 octets)
+					    Scan Response Length (2 octets)
+              Adv Data (0-1650 octets)
+              Scan Response Data (0-1650 octets)
+    Return Parameters:	<none>
+
+    This command is used to set the advertisement and scan response data
+    for an advertisement set.
+
+    The advertisement set must have been previously configured appropriately
+    for the data. For example, if more than 31 octets of advertising or scan
+    response data is given, the set must have been configured to use extended
+    PDUs.
+
+    If scan response data is given but the set is not configured as scannable,
+    then the scan response data is ignored.
+
+    Note that if extended PDUs are used, and the set is scannable, the set
+    can only have scan response data and no advertisement data.
+
+    If the advertisement set is currently advertising, the data will be
+    updated at the next advertisement interval.
+
+		In case of an error, the error response will be returned.
+
+  Opcode 0x2e - Enhanced Start Advertisement Set
+
+		Controller Index:	<controller id>
+		Command parameters:  Advertisement Set Id (1 octet)
+		          Timeout (2 octets)
+					    Number of Events (1 octet)
+    Return Parameters:	<none>
+
+    This command is used to start a previously defined advertisement set.
+
+    The timeout parameter is in units of 10ms. Set to zero for no timeout.
+
+    Set the Number of Events to zero for unlimited.
+
+		In case of an error, the error response will be returned.
+
+  Opcode 0x2f - Enhanced Stop Advertisement Set
+
+		Controller Index:	<controller id>
+		Command parameters:  Advertisement Set Id (1 octet)
+    Return Parameters:	<none>
+
+    This command is used to stop a previously started advertisement set.
+
+		In case of an error, the error response will be returned.
+
+
 Events:
 	Opcode 0x80 - New Settings event
 
