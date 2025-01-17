@@ -680,12 +680,15 @@ Commands and responses:
 
 		Controller Index:	<controller id>
 		Command parameters:  Advertisement Set Id (1 octet)
-              Identity (1 octet)
               SID (1 octet)
-              Secondary Channel Max Skip Count (1 octet)
-              Options (4 octets)
+              Address Type (1 octet)
+              Advertising Type (1 octet)
+              Filter Accept List (1 octet)
+              Directed Advertising (1 octet)
+              Options (2 octets)
               Minimum Interval, in 0.625ms units (4 octets)
               Maximum Interval, in 0.625ms units (4 octets)
+              Peer Address Type (1 octet)
               Peer Address (6 octets)
     Return Parameters:	<none>
 
@@ -695,7 +698,49 @@ Commands and responses:
 
     The allowed values for SID are 0...15.
 
+    The allowed values for Address Type are:
+              0x00 = Identity Address
+              0x01 = Resolvable Private Address
+              0x02 = Non-resolvable Private Address
+
+    The allowed values for Advertising Type are:
+              0x00 = Legacy Not Connectable, Not Scannable
+              0x01 = Legacy Connectable
+              0x02 = Legacy Scannable
+              0x03 = Legacy Connectable and Scannable
+              0x04 = Extended Not Connectable, Not Scannable
+              0x05 = Extended Connectable
+              0x06 = Extended Scannable
+              0x08 = Coded Not Connectable, Not Scannable
+              0x09 = Coded Connectable
+              0x0a = Coded Scannable
+
+    The allowed values for Filter Accept List are:
+              0x00 = Do not use the filter accept list
+              0x01 = Use the filter accept list for connections
+              0x02 = Use the filter accept list for scan requests
+
+    The allowed values for Directed Advertising are:
+              0x00 = Do not use directed advertising
+              0x01 = Use high duty directed advertising
+              0x02 = Use low duty directed advertising
+
+    The Options bitfield is a bit-wise OR of the following bits:
+              0 = Advertise with device name
+              1 = Disable 2M PHY for extended advertising
+              2 = Anonymous advertising for extended advertising
+              3 = Include TX Power in extended advertising
+              4-15 = Reserved
+
     Minimum Interval must be less than or equal to Maximum Interval.
+
+    The allowed values for Peer Address Type are:
+              0x00 = Public
+              0x01 = Random
+              0x02 = Resolvable
+
+    The Peer Address and Peer Address Type fields will be ignored if
+    directed advertising is not used.
 
 		In case of an error, the error response will be returned.
 
