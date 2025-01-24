@@ -648,10 +648,12 @@ Commands and responses:
     the stopped state.
 
     The set is created with the default parameters of:
-              Identity (1 octet) = 0 (default identity)
               SID (1 octet) = 0
-              Secondary Channel Max Skip Count (1 octet) = 0
-              Options (4 octets) = 0x00000012 (Use public address, use name)
+              Address Type (1 octet) = 0x00 (Identity)
+              Advertising Type (1 octet) = 0x00 (Legacy Not Connectable, Not Scannable)
+              Filter Accept List (1 octet) = 0x00 (Do not use the filter accept list)
+              Directed Advertising (1 octet) = 0x00 (Do not use directed advertising)
+              Options (2 octets) = 0x0000
               Minimum Interval (4 octets) = 160 (100 ms)
               Maximum Interval (4 octets) = 320 (200 ms)
               Peer Address (6 octets) = 00:00:00:00:00:00
@@ -986,3 +988,13 @@ Events:
 
 		This event can be sent after IUT received Periodic Advertising Sync
 		Transfer was received.
+
+  Opcode 0x91 - Enhanced Advertising Set Terminated event
+
+		Controller Index:	<controller id>
+		Event parameters:	Advertisement Set ID (1 octet)
+
+    This event is sent when an advertisement set is terminated by the timeout
+    or maximum events mechanism. This event is not sent when the a set is
+    explicitly stopped, or when a connection establishment causes the set to
+    stop.
