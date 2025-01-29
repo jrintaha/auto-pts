@@ -702,8 +702,7 @@ Commands and responses:
 
     The allowed values for Address Type are:
               0x00 = Identity Address
-              0x01 = Resolvable Private Address
-              0x02 = Non-resolvable Private Address
+              0x01 = Private Address (resolvable if connectable)
 
     The allowed values for Advertising Type are:
               0x00 = Legacy Not Connectable, Not Scannable
@@ -721,6 +720,7 @@ Commands and responses:
               0x00 = Do not use the filter accept list
               0x01 = Use the filter accept list for connections
               0x02 = Use the filter accept list for scan requests
+              0x03 = Use the filter accept list for connections and scan requests
 
     The allowed values for Directed Advertising are:
               0x00 = Do not use directed advertising
