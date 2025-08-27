@@ -1182,7 +1182,6 @@ Events:
                 This event can be sent after IUT received Periodic Advertising Sync
                 Transfer was received.
 
-<<<<<<< HEAD
         Opcode 0x91 - Encryption Change Received event
 
                 Controller Index:       <controller id>
@@ -1311,6 +1310,7 @@ Events:
                 Available Encryption:
                         0 - The BIS is unencrypted.
                         1 - The BIS is encrypted.
+
 	Opcode 0x98 - Advertising Set Terminated event
 
 		Controller Index:	<controller id>
